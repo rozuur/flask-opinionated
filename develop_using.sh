@@ -2,42 +2,42 @@
 
 # This script is used to run current flask application using specified environment
 
-set -euox  pipefail
+set -euox pipefail
 IFS=$'\n\t'
 
 declare -r SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 declare -r VIRTUAL_ENV_NAME=".venv_flask_opinionated"
 declare -r PORT=12121
 
-function static_analyse {
-    "${SCRIPT_DIR}"/tools/static_analyse.sh
+function static_analyse() {
+  "${SCRIPT_DIR}"/tools/static_analyse.sh
 }
 
-function use_venv {
-    "${SCRIPT_DIR}"/tools/setup_virtualenv.sh
+function use_venv() {
+  "${SCRIPT_DIR}"/tools/setup_virtualenv.sh
 
-    unset PYTHONPATH
-    export PYTHONPATH="."
-    unset MYPYPATH
-    export MYPYPATH="."
+  unset PYTHONPATH
+  export PYTHONPATH="."
+  unset MYPYPATH
+  export MYPYPATH="."
 
-    echo "Sourcing python virtual environment ${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"
-    set +x
-    source "${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"/bin/activate
-    set -x
+  echo "Sourcing python virtual environment ${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"
+  set +x
+  source "${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"/bin/activate
+  set -x
 
-    "${SCRIPT_DIR}"/tools/install_pip_requirements.sh
+  "${SCRIPT_DIR}"/tools/install_pip_requirements.sh
 }
 
-function run {
-    trap static_analyse EXIT
-    FLASK_APP="${SCRIPT_DIR}"/service.py flask run --port $PORT
+function run() {
+  trap static_analyse EXIT
+  FLASK_APP="${SCRIPT_DIR}"/service.py flask run --port $PORT
 }
 
-function main {
-    local env=${1?Environment (prod/preprod/local) is required}
-    use_venv
-    run "${env}"
+function main() {
+  local env=${1?Environment (prod/preprod/local) is required}
+  use_venv
+  run "${env}"
 }
 
 main "$@"
