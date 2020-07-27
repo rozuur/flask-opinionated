@@ -1,6 +1,7 @@
 pip-tools
 
 uwsgi
+bump2version
 
 # Static analysis
 black
