@@ -10,7 +10,8 @@ readonly GIT_BRANCH="${GIT_BRANCH:-__invalid__}"
 readonly RELEASE="${RELEASE:-false}"
 readonly USER="${USER}"
 readonly APP_NAME="flask-opinionated"
-readonly VERSION_FILE="${SCRIPT_DIR}/../app/api/.bumpversion.cfg"
+readonly VERSION_FILE="${SCRIPT_DIR}/../bumpversion.cfg"
+readonly GIT_FILE="${SCRIPT_DIR}/../git.cfg"
 
 function deploy_artifacts() {
   local build_version=${1?Build version is required}
@@ -21,8 +22,13 @@ function deploy_artifacts() {
 }
 
 function perform_release() {
-  # Coverage
-  bump2version --config-file "${VERSION_FILE}" patch --dry-run
+  # Bump the version as it checks for dirty git repository
+  bump2version --config-file "${VERSION_FILE}" patch
+
+  # Create git.cfg file
+  echo "[git]" > "${GIT_FILE}"
+  echo "commit = $(git rev-parse --short HEAD)" >> "${GIT_FILE}"
+  echo "branch = $(git branch --show-current)" >> "${GIT_FILE}"
 }
 
 function validate_release_state() {

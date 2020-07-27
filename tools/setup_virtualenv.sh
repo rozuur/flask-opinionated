@@ -15,11 +15,11 @@ function ensure_python_version() {
   fi
 }
 
-function main {
+function main() {
   ensure_python_version
   local venv_dir="${SCRIPT_DIR}/../${VIRTUAL_ENV_NAME}"
   if [[ -d "${venv_dir}" ]]; then
-      return
+    return
   fi
   python -m venv "${venv_dir}"
 }

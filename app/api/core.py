@@ -1,3 +1,5 @@
+from flask import current_app
+
 from app.api import bp
 
 
@@ -8,4 +10,6 @@ def health():
 
 @bp.route("/core/info")
 def info():
-    return {"status": "ok"}
+    version = current_app.config["VERSION"]
+    git = current_app.config["GIT"]
+    return {"version": version, "git": git}

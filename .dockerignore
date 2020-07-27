@@ -1,0 +1,11 @@
+# In .dockerignore
+# Exclude everything:
+*
+
+
+# Only includes those which are necessary
+!app
+!tools
+!config.py
+!service.py
+!uwsgi.ini
