@@ -31,7 +31,7 @@ function use_venv {
 
 function run {
     trap static_analyse EXIT
-    FLASK_APP="${SCRIPT_DIR}"/service.py FLASK_DEBUG=1 flask run
+    FLASK_APP="${SCRIPT_DIR}"/service.py FLASK_DEBUG=1 flask run --port $PORT
 }
 
 function main {
