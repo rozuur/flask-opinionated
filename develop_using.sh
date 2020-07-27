@@ -10,7 +10,7 @@ declare -r VIRTUAL_ENV_NAME=".venv_flask_opinionated"
 declare -r PORT=12121
 
 function static_analyse {
-    echo 'Static analysis'
+    "${SCRIPT_DIR}"/tools/static_analyse.sh
 }
 
 function use_venv {
