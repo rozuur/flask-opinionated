@@ -46,7 +46,7 @@ pyflakes==2.2.0           # via autoflake, flake8
 pylint==2.5.3             # via -r tools/dev-requirements.in
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.0        # via -r tools/dev-requirements.in
-pytest==6.0.1             # via -r tools/dev-requirements.in, pytest-cov
+pytest==6.0.0             # via -r tools/dev-requirements.in, pytest-cov
 pyyaml==5.3.1             # via bandit
 r2c-py-ast==0.1.0b1       # via flake8-flask
 regex==2020.7.14          # via black
