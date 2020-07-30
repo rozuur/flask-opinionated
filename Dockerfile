@@ -1,24 +1,19 @@
+# Multistage docker is not required as only requirements are installed
 FROM tiangolo/uwsgi-nginx-flask:python3.8 AS compile-image
 
-RUN pip install virtualenv
-ENV VIRTUAL_ENV=/opt/venv
-RUN mkdir -p $VIRTUAL_ENV && virtualenv $VIRTUAL_ENV
-# Make sure we use the virtualenv:
-ENV PATH=$VIRTUAL_ENV/bin:$PATH
+ENV UWSGI_INI=/app/uwsgi.ini
+ENV LISTEN_PORT=12121
 
-COPY tools/requirements.txt .
-RUN pip install -r requirements.txt
+# Enable saner defaults for pip in docker
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PIP_NO_CACHE_DIR=1
 
-# ------------------------------------------------------------------------- #
-FROM tiangolo/uwsgi-nginx-flask:python3.8
-
-COPY --from=compile-image /opt/venv /opt/venv
-
-ENV VIRTUAL_ENV=/opt/venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-ENV PYTHONPATH=".:$PYTHONPATH"
-ENV UWSGI_INI /app/uwsgi.ini
-ENV LISTEN_PORT 12121
-
-COPY . /app
+# Set the working directory to /app
 WORKDIR /app
+
+# First install requirements as they can be cached in docker layer
+COPY tools/requirements.txt tools/requirements.txt
+RUN pip install -r tools/requirements.txt
+
+# Copy the current directory contents into the container at /app
+COPY . $WORKDIR

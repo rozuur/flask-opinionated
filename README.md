@@ -33,3 +33,6 @@ help:   List make tasks which are documented, doc string starts with #:
 
 docker-run: Run app in docker
 ```
+
+# Swagger
+Open http://127.0.0.1:12121/flask-opinionated/api/v1/swagger
