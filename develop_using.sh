@@ -9,33 +9,31 @@ declare -r SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 declare -r VIRTUAL_ENV_NAME=".venv"
 declare -r PORT=12121
 
-function static_analyse() {
-  "${SCRIPT_DIR}"/tools/static_analyse.sh
+function format_fix_and_check() {
+  make format
+  make lint
 }
 
 function use_venv() {
-  "${SCRIPT_DIR}"/tools/setup_virtualenv.sh "${VIRTUAL_ENV_NAME}"
+  make venv
 
+  echo "Sourcing python virtual environment ${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"
+  set +x
   unset PYTHONPATH
   export PYTHONPATH="."
   unset MYPYPATH
   export MYPYPATH="."
-
-  echo "Sourcing python virtual environment ${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"
-  set +x
   source "${SCRIPT_DIR}/${VIRTUAL_ENV_NAME}"/bin/activate
   set -x
-
-  "${SCRIPT_DIR}"/tools/install_pip_requirements.sh
 }
 
 function run() {
-  trap static_analyse EXIT
+  trap format_fix_and_check EXIT
   FLASK_APP="${SCRIPT_DIR}"/service.py flask run --port $PORT
 }
 
 function main() {
-  local env=${1?Environment (prod/preprod/local) is required}
+  local env=${1:-local}
   use_venv
   run "${env}"
 }
