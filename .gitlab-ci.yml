@@ -1,0 +1,47 @@
+image: "python:3.8"
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# Pip's cache doesn't store the python packages
+# https://pip.pypa.io/en/stable/reference/pip_install/#caching
+#
+# If you want to also cache the installed packages, you have to install
+# them in a virtualenv and cache it as well.
+cache:
+  paths:
+    - .cache/pip
+    - .venv/
+
+before_script:
+  - python -V               # Print out python version for debugging
+  - make venv
+
+# different stages in the pipeline
+stages:
+  - Format Test
+  - Static Analysis
+  - Test
+
+
+format_test:
+  stage: Format Test
+  script:
+    - make format
+    - echo 'Fail if git repo is dirty after formatting'
+    - git diff --exit-code
+
+static_analysis:
+  stage: Static Analysis
+  script:
+    - make lint
+
+unit_test:
+  stage: Test
+  script:
+    - make test
+  # Read coverage from stdout
+  coverage: '/:\s(\d+.\d+\%)/'
+
