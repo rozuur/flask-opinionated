@@ -41,7 +41,7 @@ function validate_release_state() {
 }
 
 function main() {
-  make check test
+  make format lint test
 
   local build_version
   build_version=$(awk '/current_version/ {print $3}' "${VERSION_FILE}")

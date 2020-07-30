@@ -1,21 +1,35 @@
-# Tutorial
+# Flask opinionated
+
+## Tutorial
 
 Follow [The Flask Mega-Tutorial Part I: Hello, World!](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
-# Local Development
+## Pip requirements
+Don't add packages to _requirements.txt_, instead add them to **requirements.in**.
+
+`pip-tools` is used to manage requirements and it generates requirements.txt based on requirements.in
+
+## Local Development
 
 Application runs on port **12121**
 
-Invoke `./develop_using.sh` script with corresponding environment. 
-For local development use `./develop_using.sh local`.
+For local development use `./develop_using.sh`.
 
-### Docker
+Above script also formats and fixes code.
 
-To build docker image run `docker build .`
+## Makefile
+Makefile is used to run various tasks. Run `make` to get a list of tasks.
 
-To run the app at port 8000 use `docker run --rm -it -p12121:12121 $(docker build -q .)`
+Currently supported tasks
+```
+venv:   Setup virtual environment
+run:    Run flask app
+debug:  Debug flask app
+uwsgi:  Run flask app in uwsgi
+test:   Run tests and fail if coverage is not met
+format: Format and fix python code
+lint:   Run static analysis with flake8, pylint, bandit and mypy
+help:   List make tasks which are documented, doc string starts with #:
 
-### uwsgi
-To test locally run `uwsgi --ini uwsgi.ini --http :12121`
-
-# Testing
+docker-run: Run app in docker
+```

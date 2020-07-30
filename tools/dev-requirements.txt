@@ -13,6 +13,7 @@ black==19.10b0            # via -r tools/dev-requirements.in
 bump2version==1.0.0       # via -r tools/dev-requirements.in
 click==7.1.2              # via black, pip-tools
 coverage==5.2.1           # via pytest-cov
+flake8-blind-except==0.1.1  # via -r tools/dev-requirements.in
 flake8-breakpoint==1.1.0  # via -r tools/dev-requirements.in
 flake8-builtins==1.5.3    # via -r tools/dev-requirements.in
 flake8-comprehensions==3.2.3  # via -r tools/dev-requirements.in
@@ -61,3 +62,4 @@ wrapt==1.12.1             # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
+# setuptools
