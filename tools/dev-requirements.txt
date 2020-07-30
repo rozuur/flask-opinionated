@@ -14,7 +14,6 @@ click==7.1.2              # via black, pip-tools
 flake8==3.8.3             # via -r dev-requirements.in
 gitdb==4.0.5              # via gitpython
 gitpython==3.1.7          # via bandit
-importlib-metadata==1.7.0  # via flake8, stevedore
 isort==5.2.0              # via -r dev-requirements.in
 mccabe==0.6.1             # via flake8
 pathspec==0.8.0           # via black
@@ -30,7 +29,6 @@ stevedore==3.2.0          # via bandit
 toml==0.10.1              # via black
 typed-ast==1.4.1          # via black
 uwsgi==2.0.19.1           # via -r dev-requirements.in
-zipp==3.1.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

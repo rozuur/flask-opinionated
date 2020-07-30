@@ -6,7 +6,7 @@ set -euox pipefail
 IFS=$'\n\t'
 
 declare -r SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-declare -r VIRTUAL_ENV_NAME=".venv_flask_opinionated"
+declare -r VIRTUAL_ENV_NAME=".venv"
 declare -r PORT=12121
 
 function static_analyse() {
@@ -14,7 +14,7 @@ function static_analyse() {
 }
 
 function use_venv() {
-  "${SCRIPT_DIR}"/tools/setup_virtualenv.sh
+  "${SCRIPT_DIR}"/tools/setup_virtualenv.sh "${VIRTUAL_ENV_NAME}"
 
   unset PYTHONPATH
   export PYTHONPATH="."
