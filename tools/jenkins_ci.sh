@@ -26,9 +26,9 @@ function perform_release() {
   bump2version --config-file "${VERSION_FILE}" patch
 
   # Create git.cfg file
-  echo "[git]" > "${GIT_FILE}"
-  echo "commit = $(git rev-parse --short HEAD)" >> "${GIT_FILE}"
-  echo "branch = $(git branch --show-current)" >> "${GIT_FILE}"
+  echo "[git]" >"${GIT_FILE}"
+  echo "commit = $(git rev-parse --short HEAD)" >>"${GIT_FILE}"
+  echo "branch = $(git branch --show-current)" >>"${GIT_FILE}"
 }
 
 function validate_release_state() {
@@ -41,7 +41,7 @@ function validate_release_state() {
 }
 
 function main() {
-  "${SCRIPT_DIR}"/static_analyse.sh
+  make check test
 
   local build_version
   build_version=$(awk '/current_version/ {print $3}' "${VERSION_FILE}")
@@ -53,4 +53,7 @@ function main() {
   fi
 }
 
-main
+(
+  cd "${SCRIPT_DIR}/.."
+  main
+)
