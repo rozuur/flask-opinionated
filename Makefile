@@ -11,8 +11,8 @@ export PIP_DISABLE_PIP_VERSION_CHECK=1
 
 venv: $(VENV_NAME)/bin/black #: Setup virtual environment
 $(VENV_NAME)/bin/black: $(VENV_BIN)/pip-compile tools/requirements.in tools/dev-requirements.in
-	$(VENV_BIN)/pip-compile -q tools/requirements.in
-	$(VENV_BIN)/pip-compile -q tools/dev-requirements.in
+	$(VENV_BIN)/pip-compile -q --build-isolation tools/requirements.in
+	$(VENV_BIN)/pip-compile -q --build-isolation tools/dev-requirements.in
 	$(VENV_BIN)/pip-sync -q tools/requirements.txt tools/dev-requirements.txt
 	touch $(VENV_NAME)/bin/black
 

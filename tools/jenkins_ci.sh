@@ -3,15 +3,18 @@
 set -euox pipefail
 IFS=$'\n\t'
 
-SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-readonly SCRIPT_DIR
-
+readonly SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 readonly GIT_BRANCH="${GIT_BRANCH:-__invalid__}"
 readonly RELEASE="${RELEASE:-false}"
 readonly USER="${USER}"
-readonly APP_NAME="flask-opinionated"
+readonly APP_NAME="$(basename "$(git remote get-url origin)" .git)"
 readonly VERSION_FILE="${SCRIPT_DIR}/../bumpversion.cfg"
 readonly GIT_FILE="${SCRIPT_DIR}/../git.cfg"
+
+function die() {
+  echo "$*" 1>&2
+  exit 1
+}
 
 function deploy_artifacts() {
   local build_version=${1?Build version is required}

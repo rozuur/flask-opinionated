@@ -6,7 +6,7 @@
 #
 attrs==19.3.0             # via jsonschema
 click==7.1.2              # via flask
-flasgger==0.9.4           # via -r tools/requirements.in
+flasgger==0.9.5           # via -r tools/requirements.in
 flask==1.1.2              # via -r tools/requirements.in, flasgger
 itsdangerous==1.1.0       # via flask
 jinja2==2.11.2            # via flask
