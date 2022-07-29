@@ -4,19 +4,36 @@
 #
 #    pip-compile tools/requirements.in
 #
-attrs==19.3.0             # via jsonschema
-click==7.1.2              # via flask
-flasgger==0.9.5           # via -r tools/requirements.in
-flask==1.1.2              # via -r tools/requirements.in, flasgger
-itsdangerous==1.1.0       # via flask
-jinja2==2.11.2            # via flask
-jsonschema==3.2.0         # via flasgger
-markupsafe==1.1.1         # via jinja2
-mistune==0.8.4            # via flasgger
-pyrsistent==0.16.0        # via jsonschema
-pyyaml==5.3.1             # via flasgger
-six==1.15.0               # via flasgger, jsonschema
-werkzeug==1.0.1           # via flask
+attrs==19.3.0
+    # via jsonschema
+click==7.1.2
+    # via flask
+flasgger==0.9.5
+    # via -r requirements.in
+flask==1.1.2
+    # via
+    #   -r requirements.in
+    #   flasgger
+itsdangerous==1.1.0
+    # via flask
+jinja2==2.11.2
+    # via flask
+jsonschema==3.2.0
+    # via flasgger
+markupsafe==1.1.1
+    # via jinja2
+mistune==2.0.3
+    # via flasgger
+pyrsistent==0.16.0
+    # via jsonschema
+pyyaml==5.3.1
+    # via flasgger
+six==1.15.0
+    # via
+    #   flasgger
+    #   jsonschema
+werkzeug==1.0.1
+    # via flask
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
